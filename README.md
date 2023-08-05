@@ -32,10 +32,6 @@ BudgetBuddy harnesses the power of React Router v6 for seamless navigation and a
 
 If you'd like to contribute to BudgetBuddy, feel free to fork this repository, make improvements, and submit a pull request. We welcome any enhancements that align with the app's goals and usability.
 
-## Acknowledgments
-
-BudgetBuddy was built with passion by [@Mohammed019](https://github.com/Mohammed019). Special thanks to the React community for creating and maintaining incredible tools.
-
 ---
 
 Start managing your budgets like a pro with Budget Home! 📊🤑
