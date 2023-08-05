@@ -1,41 +1,59 @@
-import { Form } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
+import { BiSolidUserPlus } from "react-icons/bi";
+import illustration from "../assets/illustration.jpg";
+import { useEffect, useRef } from "react";
 
-// library imports
-import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
+// this intro page is a like login page to create a new user and start using the app
+const Intro = () => {
+  const fetcher = useFetcher();
 
-const AddBudgetForm = () => {
+  const formRef = useRef();
+  const foucsRef = useRef();
+
+  // this is how we get state of form from usefetcher hook
+  const isSubmitting = fetcher.state === "submitting";
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      formRef.current.reset();
+      foucsRef.current.focus();
+    }
+  }, [isSubmitting]);
+
   return (
-    <div className="form-wrapper">
-      <h2 className="h3">Create budget</h2>
-      <Form method="post" className="grid-sm">
-        <div className="grid-xs">
-          <label htmlFor="newBudget">Budget Name</label>
+    <div className="intro">
+      <div>
+        <h1>
+          Take Control of <span className="accent">Your Money</span>
+        </h1>
+        <p>
+          Personal Budgeting is the secret to financial freedom. Start your
+          journey today.
+        </p>
+        <fetcher.Form method="post" ref={formRef}>
           <input
+            ref={foucsRef}
             type="text"
-            name="newBudget"
-            id="newBudget"
-            placeholder="e.g., Groceries"
+            name="userName"
             required
+            placeholder="What is your name?"
+            aria-label="Your Name"
+            autoComplete="given-name"
           />
-        </div>
-        <div className="grid-xs">
-          <label htmlFor="newBudgetAmount">Amount</label>
-          <input
-            type="number"
-            step="0.01"
-            name="newBudgetAmount"
-            id="newBudgetAmount"
-            placeholder="e.g., $350"
-            required
-            inputMode="decimal"
-          />
-        </div>
-        <button type="submit" className="btn btn--dark">
-          <span>Create budget</span>
-          <CurrencyDollarIcon width={20} />
-        </button>
-      </Form>
+          <input type="hidden" name="_action" value="newUser" />
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="btn btn--dark"
+          >
+            <span>Create Account</span>
+            <BiSolidUserPlus width={30} />
+          </button>
+        </fetcher.Form>
+      </div>
+      <img src={illustration} alt="Person With Money" width={600} />
     </div>
   );
 };
-export default AddBudgetForm;
+
+export default Intro;
